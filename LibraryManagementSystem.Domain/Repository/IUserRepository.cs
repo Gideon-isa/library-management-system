@@ -7,7 +7,9 @@ namespace LibraryManagementSystem.Domain.Repository
     {
         Task<bool> CreateAsync(User user, CancellationToken cancellationToken);
         Task<IdentityResult> SetPasswordAsync(User user, string password, CancellationToken cancellationToken);
-        Task<User?> GetByIdAsync(int id, CancellationToken cancellationToken);
+        Task<User?> GetByIdAsync(string id, CancellationToken cancellationToken);
+        Task<User?> GetByUsername(string username, CancellationToken cancellationToken);
+        Task<bool> ValidatePassword(User user, string password,  CancellationToken cancellationToken);
         Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken); 
         Task<User?> UpdateAsync(User user, CancellationToken cancellationToken);
         Task<bool> DeleteAsync(int id, CancellationToken cancellationToken);

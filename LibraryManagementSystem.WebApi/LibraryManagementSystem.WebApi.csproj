@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>9f3f92d3-baba-4a65-8bbe-da42d4386be1</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ApiModels\Request\" />
+    <Folder Include="ApiModels\Common\" />
     <Folder Include="Extensions\Books\" />
   </ItemGroup>
 

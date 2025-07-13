@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using LibrarayManagementSystem.Application.Features.Users.Commands.Login;
 using LibrarayManagementSystem.Application.Features.Users.Commands.Signup;
 using LibraryManagementSystem.Presentation.Extensions;
 using LibraryManagementSystem.Presentation.Extensions.Users;
-using LibraryManagementSystem.WebApi.ApiModels.Common;
+using LibraryManagementSystem.WebApi.ApiModels.Request;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,10 +36,27 @@ namespace LibraryManagementSystem.Presentation.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("user/{id}")]
+        [HttpPost("login")]
+        public async Task<IActionResult> login(
+            [FromBody] LoginUserRequest request,
+            [FromServices] IValidator<LoginUserCommand> validator,
+            CancellationToken cancellationToken = default)
+        {
+            var cmd = request.ToCommand();
+            var validationResult = await validator.ValidateAsync(cmd, cancellationToken);
+            if (!validationResult.IsValid)
+            {
+                var customError = validationResult.Errors.ToErrorMessage(cmd);
+                return StatusCode(customError.statusCode, customError.result);
+            }
+            var result = await sender.Send(cmd, cancellationToken);
+            return StatusCode(result.StatusCode, result);
+        }
 
+        [AllowAnonymous]
+        [HttpGet("user/{id}")]
         public async Task<IActionResult> GetUserById(
-            [FromBody] CreateUserRequest request, [FromServices]IValidator<CreateUserCommand> validator, 
+            [FromRoute] Guid id, [FromServices] IValidator<GetUserByIdQuery> validator, 
             CancellationToken cancellationToken = default)
         {
             var cmd = request.ToCommand();

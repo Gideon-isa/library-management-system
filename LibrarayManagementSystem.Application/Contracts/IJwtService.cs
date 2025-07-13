@@ -2,7 +2,7 @@
 
 namespace LibrarayManagementSystem.Application.Contracts
 {
-    internal interface IJwtService
+    public interface IJwtService
     {
         string GenerateToken(User user, CancellationToken cancellationToken);
     }

@@ -3,7 +3,8 @@ using MediatR;
 
 namespace LibrarayManagementSystem.Application.Features.Users.Queries.GetUserById
 {
-    public class GetUserByIdCommand : IRequest<ResultResponse<UserDto>>
+    public class GetUserByIdQuery : IRequest<ResultResponse<UserDto>>, IUserCommand
     {
+        public Guid Id { get; set; }
     }
 }
