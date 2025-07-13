@@ -14,9 +14,12 @@ namespace LibraryManagementSystem.Domain.Entities
         public DateTime? ModifiedOn { get; private set; }
         public string? ModifiedBy { get; private set; }
 
-        private Book(int id, string title, string author, string isbn, DateTime publishedDate, string createdBy)
+        public Book()
         {
-            Id = id;
+            // Parameterless constructor for EF Core
+        }
+        private Book(string title, string author, string isbn, DateTime publishedDate, string createdBy)
+        {
             Title = title;
             Author = author;
             ISBN = isbn;
@@ -25,9 +28,9 @@ namespace LibraryManagementSystem.Domain.Entities
             CreatedOn = DateTime.Now;
         }
 
-        public static Book CreateBook(int id, string title, string author, string isbn, DateTime publishedDate, string createdBy)
+        public static Book CreateBook(string title, string author, string isbn, DateTime publishedDate, string createdBy)
         {
-            return new Book(id, title, author, isbn, publishedDate, createdBy);
+            return new Book(title, author, isbn, publishedDate, createdBy);
         }
 
         public void UpdateBook(string title, string author, string isbn, DateTime publishedDate, string modifiedBy)

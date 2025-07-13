@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LibraryManagementSystem.Domain.Entities
 {
-    public sealed class User : IdentityUser<Guid>, IAuditable
+    public sealed class User : IdentityUser, IAuditable
     {
         public string FirstName { get; private set; } = string.Empty;
         public string LastName { get; private set; } = string.Empty;
@@ -11,6 +11,7 @@ namespace LibraryManagementSystem.Domain.Entities
         public DateTime? ModifiedOn { get; private set; }
         public string? ModifiedBy { get; private set; }
 
+        private User() { }
         private User(string firstName, string lastName, string email, string username)
         {
             FirstName = firstName;
