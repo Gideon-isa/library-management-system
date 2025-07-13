@@ -4,7 +4,7 @@ namespace LibrarayManagementSystem.Application.Features.Users
 {
     public static class UserDtoExtensions
     {
-        public static UserDto ToDto(this User user)
+        public static UserDto ToDto(this User user, string? token = null)
         {
             return new UserDto
             {
@@ -13,6 +13,7 @@ namespace LibrarayManagementSystem.Application.Features.Users
                 LastName = user.LastName,
                 Email = user.Email,
                 Username = user.UserName,
+                Token = token
             };
         }
     }

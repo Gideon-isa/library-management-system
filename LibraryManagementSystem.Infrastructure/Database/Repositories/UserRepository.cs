@@ -37,14 +37,14 @@ namespace LibraryManagementSystem.Infrastructure.Database.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken)
+        public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _userManager.FindByEmailAsync(email);
         }
 
-        public Task<User?> GetByIdAsync(int id, CancellationToken cancellationToken)
+        public Task<User?> GetByIdAsync(string id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return _userManager.FindByIdAsync(id);
         }
 
         public Task<User?> UpdateAsync(User user, CancellationToken cancellationToken)
@@ -52,5 +52,14 @@ namespace LibraryManagementSystem.Infrastructure.Database.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<User?> GetByUsername(string username, CancellationToken cancellationToken)
+        {
+            return await _userManager.FindByNameAsync(username);
+        }
+
+        public async Task<bool> ValidatePassword(User user, string password, CancellationToken cancellationToken)
+        {
+            return await _userManager.CheckPasswordAsync(user, password);
+        }
     }
 }

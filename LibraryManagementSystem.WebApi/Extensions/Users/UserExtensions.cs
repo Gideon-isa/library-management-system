@@ -1,5 +1,6 @@
-﻿using LibrarayManagementSystem.Application.Features.Users.Commands.Signup;
-using LibraryManagementSystem.WebApi.ApiModels.Common;
+﻿using LibrarayManagementSystem.Application.Features.Users.Commands.Login;
+using LibrarayManagementSystem.Application.Features.Users.Commands.Signup;
+using LibraryManagementSystem.WebApi.ApiModels.Request;
 
 namespace LibraryManagementSystem.Presentation.Extensions.Users
 {
@@ -16,6 +17,23 @@ namespace LibraryManagementSystem.Presentation.Extensions.Users
                 Password = userRequest.Password.Trim(),
                 ReEnteredPassword = userRequest.ReEnteredPassword.Trim(),
                 
+            };
+        }
+
+        public static LoginUserCommand ToCommand(this LoginUserRequest loginUserRequest)
+        {
+            return new LoginUserCommand
+            {
+                UsernameOrEmail = loginUserRequest.UsernameOrEmail.Trim(),
+                Password = loginUserRequest.Password.Trim(),
+            };
+        }
+
+        public static GetUserByIdQuery ToCommand(Guid id)
+        {
+            return new GetUserByIdQuery
+            {
+                Id = id,
             };
         }
     }
