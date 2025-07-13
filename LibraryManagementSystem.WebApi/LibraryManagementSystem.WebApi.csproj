@@ -15,7 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LibrarayManagementSystem.Application\LibrarayManagementSystem.Application.csproj" />
     <ProjectReference Include="..\LibraryManagementSystem.Infrastructure\LibraryManagementSystem.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ApiModels\Request\" />
+    <Folder Include="Extensions\Books\" />
   </ItemGroup>
 
 </Project>
