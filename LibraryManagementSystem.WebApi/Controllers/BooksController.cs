@@ -4,7 +4,6 @@ using LibraryManagementSystem.Presentation.Extensions;
 using LibraryManagementSystem.WebApi.ApiModels.Request;
 using LibraryManagementSystem.WebApi.Extensions.Books;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementSystem.WebApi.Controllers
@@ -33,8 +32,15 @@ namespace LibraryManagementSystem.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBooks([FromQuery] GetBooksQueryRequest queryRequest, CancellationToken cancellationToken)
         {
-            //query.search ??= query.search?.Trim().ToLower();
             var query = queryRequest.ToQuery();
+            var result = await sender.Send(query, cancellationToken);
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetBookById([FromRoute] int id, CancellationToken cancellationToken)
+        {
+            var query = BooksExtensions.ToQuery(id);
             var result = await sender.Send(query, cancellationToken);
             return StatusCode(result.StatusCode, result);
         }

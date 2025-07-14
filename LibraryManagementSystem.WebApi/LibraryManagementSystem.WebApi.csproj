@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ApiModels\Common\**" />
+    <Content Remove="ApiModels\Common\**" />
+    <EmbeddedResource Remove="ApiModels\Common\**" />
+    <None Remove="ApiModels\Common\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.18">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ApiModels\Common\" />
     <Folder Include="ApiModels\Request\NewFolder\" />
   </ItemGroup>
 

@@ -1,5 +1,6 @@
 ﻿using LibraryManagementSystem.Domain.Entities;
 using LibraryManagementSystem.Domain.Repository;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace LibraryManagementSystem.Infrastructure.Database.Repositories
@@ -41,9 +42,9 @@ namespace LibraryManagementSystem.Infrastructure.Database.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Book?> GetByIdAsync(int id, CancellationToken cancellationToken)
+        public async Task<Book?> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _dbcontext.Books.FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
         }
 
         public Task<Book?> GetByISBNAsync(string isbn, CancellationToken cancellationToken)
