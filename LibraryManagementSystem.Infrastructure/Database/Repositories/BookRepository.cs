@@ -1,23 +1,22 @@
 ﻿using LibraryManagementSystem.Domain.Entities;
 using LibraryManagementSystem.Domain.Repository;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 
 namespace LibraryManagementSystem.Infrastructure.Database.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _dbcontext;
         private readonly ILogger<BookRepository> _logger;
         public BookRepository(ApplicationDbContext context, ILogger<BookRepository> logger)
         {
-            _context = context;
+            _dbcontext = context;
             _logger = logger;
         }
         public async Task<bool> CreateAsync(Book book, CancellationToken cancellationToken)
         {
-            await _context.Books.AddAsync(book);
-            var result = await _context.SaveChangesAsync();
+            await _dbcontext.Books.AddAsync(book);
+            var result = await _dbcontext.SaveChangesAsync();
             return result > 0;
         }
 
@@ -31,9 +30,10 @@ namespace LibraryManagementSystem.Infrastructure.Database.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IQueryable<Book>> GetAllAsync(CancellationToken cancellationToken)
+        public Task<IQueryable<Book>> GetBooksAsync(string? search, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var query = _dbcontext.Books.Where(s => search == null || s.Title.Contains(search) || s.Author.Contains(search));
+            return Task.FromResult(query);
         }
 
         public Task<IQueryable<Book>> GetBooksByAuthorAsync(string author, CancellationToken cancellationToken)

@@ -30,10 +30,13 @@ namespace LibraryManagementSystem.WebApi.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetBooks([FromQuery] BooksQueryRequest query, CancellationToken cancellationToken)
-        //{
-        //    query.search ??= query.search?.Trim().ToLower();
-        //}
+        [HttpGet]
+        public async Task<IActionResult> GetBooks([FromQuery] GetBooksQueryRequest queryRequest, CancellationToken cancellationToken)
+        {
+            //query.search ??= query.search?.Trim().ToLower();
+            var query = queryRequest.ToQuery();
+            var result = await sender.Send(query, cancellationToken);
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }
