@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <Folder Include="ApiModels\Common\" />
-    <Folder Include="Extensions\Books\" />
+    <Folder Include="ApiModels\Request\NewFolder\" />
   </ItemGroup>
 
 </Project>

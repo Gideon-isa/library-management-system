@@ -3,7 +3,7 @@ using MediatR;
 
 namespace LibrarayManagementSystem.Application.Features.Users.Commands.Signup
 {
-    public class CreateUserCommand : IRequest<ResultResponse<UserDto>>, IUserCommand
+    public class CreateUserCommand : IRequest<ResultResponse<UserDto>>, IResponseData
     {
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;

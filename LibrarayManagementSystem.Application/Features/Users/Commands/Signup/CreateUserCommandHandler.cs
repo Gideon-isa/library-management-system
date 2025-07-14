@@ -51,9 +51,9 @@ namespace LibrarayManagementSystem.Application.Features.Users.Commands.Signup
                     return ResultResponse<UserDto>.Failure(new(), new Error("400", result.Errors.ToString()), HttpStatusCode.BadRequest);
                 }
 
+                await _unitOfWork.SaveChangesAsync();
                 await _unitOfWork.CommitTransactionAsync();
-                //var saved = await _unitOfWork.SaveChangesAsync();
-            
+
                 var userDto = user.ToDto();
                 return ResultResponse<UserDto>.Success(userDto, HttpStatusCode.Created, "user successfully created");
             }

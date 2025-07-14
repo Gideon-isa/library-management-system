@@ -1,5 +1,6 @@
 ﻿using LibrarayManagementSystem.Application.Features.Users.Commands.Login;
 using LibrarayManagementSystem.Application.Features.Users.Commands.Signup;
+using LibrarayManagementSystem.Application.Features.Users.Queries.GetUserById;
 using LibraryManagementSystem.WebApi.ApiModels.Request;
 
 namespace LibraryManagementSystem.Presentation.Extensions.Users

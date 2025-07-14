@@ -1,17 +1,17 @@
 ﻿using FluentValidation.Results;
-using LibrarayManagementSystem.Application.Features.Users;
+using LibrarayManagementSystem.Application.Response;
 using Microsoft.Extensions.Logging;
 
 namespace LibraryManagementSystem.Presentation.Extensions
 {
     public static class ValidationErrorExtension
     {
-        public static (CustomValidationResult result, int statusCode) ToErrorMessage(
-            this List<ValidationFailure> validationFailures, IUserCommand cmd)
+        public static (CustomValidationResult<T> result, int statusCode) ToErrorMessage<T>(
+            this List<ValidationFailure> validationFailures, T cmd) where T : IResponseData
         {
-            CustomValidationResult result = new CustomValidationResult
+            CustomValidationResult<T> result = new CustomValidationResult<T>
             {
-                Data = null,
+                Data = cmd,
 
                 Message = validationFailures.Select(m => m.ErrorMessage).FirstOrDefault()?.ToString() ?? string.Empty,
 
@@ -19,11 +19,11 @@ namespace LibraryManagementSystem.Presentation.Extensions
 
                 IsSuccess = validationFailures.Count <= 0,
 
-                Errors = validationFailures.Select(m => new CustomErrorMessage
+                Errors = [.. validationFailures.Select(m => new CustomErrorMessage
                 {
                     PropertyName = m.PropertyName,
                     ErrorMessage = m.ErrorMessage,
-                }).ToList(),
+                })],
             };
 
             int statusCode = result.StatusCode;
@@ -50,9 +50,9 @@ namespace LibraryManagementSystem.Presentation.Extensions
         }
     }
 
-    public class CustomValidationResult
+    public class CustomValidationResult<T> where T : IResponseData
     {
-        public UserData? Data { get; set; } = new();
+        public T? Data { get; set; } 
         public string Message { get; set; } = string.Empty;
         public int StatusCode { get; set; }
         public bool IsSuccess { get; set; }
@@ -65,11 +65,11 @@ namespace LibraryManagementSystem.Presentation.Extensions
         public string ErrorMessage { get; set; } = string.Empty;
     }
 
-    public class UserData
-    {
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-    }
+    //public class UserData
+    //{
+    //    public string FirstName { get; set; } = string.Empty;
+    //    public string LastName { get; set; } = string.Empty;
+    //    public string Email { get; set; } = string.Empty;
+    //}
 }
 
