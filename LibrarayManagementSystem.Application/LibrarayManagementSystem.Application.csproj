@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Features\Books\Commands\Delete\" />
     <Folder Include="Features\Books\Commands\Update\" />
-    <Folder Include="Features\Books\Queries\GetBooks\" />
     <Folder Include="Features\Books\Queries\GetBookById\" />
   </ItemGroup>
 

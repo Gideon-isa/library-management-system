@@ -1,4 +1,5 @@
 ﻿using LibrarayManagementSystem.Application.Features.Books.Commands.Create;
+using LibrarayManagementSystem.Application.Features.Books.Queries.GetBooks;
 using LibraryManagementSystem.WebApi.ApiModels.Request;
 
 namespace LibraryManagementSystem.WebApi.Extensions.Books
@@ -16,5 +17,12 @@ namespace LibraryManagementSystem.WebApi.Extensions.Books
             };
         }
 
+        public static GetBooksQuery ToQuery(this GetBooksQueryRequest request)
+        {
+            return new GetBooksQuery
+            {
+               Search = request.Search?.Trim().ToLower(),
+            };
+        }
     }
 }

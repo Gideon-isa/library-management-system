@@ -9,7 +9,7 @@ namespace LibraryManagementSystem.Domain.Entities
         public string Author { get; private set; } = string.Empty;
         public string ISBN { get; private set; } = string.Empty;
         public DateTime PublishedDate { get; private set; }
-        public string? CreatedBy { get; private set; }
+        public string CreatedBy { get; private set; }
         public DateTime CreatedOn { get; private set; }
         public DateTime? ModifiedOn { get; private set; }
         public string? ModifiedBy { get; private set; }

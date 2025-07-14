@@ -1,8 +1,8 @@
 ﻿namespace LibraryManagementSystem.WebApi.ApiModels.Request
 {
-    public class BooksQueryRequest
+    public class GetBooksQueryRequest
     {
-        public string? search { get; set; }
+        public string? Search { get; set; }
          
     }
 }
