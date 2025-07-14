@@ -22,6 +22,8 @@ namespace LibraryManagementSystem.WebApi.Extensions.Books
             return new GetBooksQuery
             {
                Search = request.Search?.Trim().ToLower(),
+               PageNumber = request.PageNumber,
+               PageSize = request.PageSize
             };
         }
     }

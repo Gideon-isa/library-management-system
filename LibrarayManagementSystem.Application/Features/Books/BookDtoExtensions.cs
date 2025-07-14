@@ -15,9 +15,16 @@ namespace LibrarayManagementSystem.Application.Features.Books
                 PublishedDate = book.PublishedDate,
             };
         }
-        //public static IEnumerable<BookDto> ToDtos(this IEnumerable<Book> books)
-        //{
-        //    return books.Select(book => book.ToDto());
-        //}
+
+        public static BookDtos BookDtos(this List<BookDto> bookDtos, int pageNumber, int pageSize, int totalCount)
+        {
+            return new BookDtos
+            {
+                Books = bookDtos,
+                Page = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+            };
+        }
     }
 }
