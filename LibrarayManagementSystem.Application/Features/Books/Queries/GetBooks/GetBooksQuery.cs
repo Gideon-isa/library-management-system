@@ -5,9 +5,11 @@ using System.Linq.Expressions;
 
 namespace LibrarayManagementSystem.Application.Features.Books.Queries.GetBooks
 {
-    public class GetBooksQuery : IRequest<ResultResponse<List<BookDto>>>, IResponseData
+    public class GetBooksQuery : IRequest<ResultResponse<BookDtos>>, IResponseData
     {
         public string? Search { get; set; } = string.Empty;
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
 
         public static Expression<Func<Book, BookDto>> ProjectToDto() => book => new BookDto
         {
