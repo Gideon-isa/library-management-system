@@ -1,10 +1,11 @@
 ﻿using LibraryManagementSystem.Domain.Entities;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace LibraryManagementSystem.Domain.Repository
 {
     public interface IBookRepository
     {
-        Task<Book?> CreateAsync(Book book, CancellationToken cancellationToken);
+        Task<bool> CreateAsync(Book book, CancellationToken cancellationToken);
         Task<Book?> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task<IQueryable<Book>> GetAllAsync(CancellationToken cancellationToken);
         Task<IQueryable<Book>> GetBooksByAuthorAsync(string author, CancellationToken cancellationToken);

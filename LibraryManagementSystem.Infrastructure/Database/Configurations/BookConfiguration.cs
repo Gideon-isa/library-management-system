@@ -8,6 +8,7 @@ namespace LibraryManagementSystem.Infrastructure.Database.Configurations
     {
         public void Configure(EntityTypeBuilder<Book> builder)
         {
+            //builder.ToTable("books");
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Id).ValueGeneratedOnAdd();
             builder.Property(b => b.ISBN).HasMaxLength(17).IsRequired();

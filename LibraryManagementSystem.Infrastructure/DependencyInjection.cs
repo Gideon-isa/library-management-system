@@ -32,6 +32,7 @@ namespace LibraryManagementSystem.Infrastructure
               .AddDefaultTokenProviders();
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;

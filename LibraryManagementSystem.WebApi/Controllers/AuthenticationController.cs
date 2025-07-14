@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using LibrarayManagementSystem.Application.Features.Users.Commands.Login;
 using LibrarayManagementSystem.Application.Features.Users.Commands.Signup;
+using LibrarayManagementSystem.Application.Features.Users.Queries.GetUserById;
 using LibraryManagementSystem.Presentation.Extensions;
 using LibraryManagementSystem.Presentation.Extensions.Users;
 using LibraryManagementSystem.WebApi.ApiModels.Request;
@@ -11,7 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace LibraryManagementSystem.Presentation.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/authentication")]
+    [Authorize]
     public class AuthenticationController(ISender sender) : ControllerBase
     {
 
@@ -59,7 +61,7 @@ namespace LibraryManagementSystem.Presentation.Controllers
             [FromRoute] Guid id, [FromServices] IValidator<GetUserByIdQuery> validator, 
             CancellationToken cancellationToken = default)
         {
-            var cmd = request.ToCommand();
+            var cmd = UserExtensions.ToCommand(id);
             var validationResult = await validator.ValidateAsync(cmd, cancellationToken);
             if (!validationResult.IsValid)
             {
@@ -67,7 +69,7 @@ namespace LibraryManagementSystem.Presentation.Controllers
                 return StatusCode(customError.statusCode, customError.result);
             }
             var result = await sender.Send(cmd, cancellationToken);
-            return null;
+            return StatusCode(result.StatusCode, result);
         }
     }
 }
