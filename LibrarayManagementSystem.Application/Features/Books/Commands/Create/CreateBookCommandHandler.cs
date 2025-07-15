@@ -40,7 +40,6 @@ namespace LibrarayManagementSystem.Application.Features.Books.Commands.Create
                     _logger.LogError("Failed to create book with ISBN {ISBN}", newBook.ISBN);
                     return ResultResponse<BookDto>.Failure(null, new Error("500", "Failed to create book"), HttpStatusCode.InternalServerError, "Failed to create book");
                 }
-
             }
             catch (Exception e)
             {

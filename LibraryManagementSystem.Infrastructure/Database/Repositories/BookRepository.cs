@@ -19,14 +19,12 @@ namespace LibraryManagementSystem.Infrastructure.Database.Repositories
         {
             var saveResult = await _dbcontext.Books.AddAsync(book);
             return saveResult;
-            //var result = await _dbcontext.SaveChangesAsync();
-            //return result > 0;
         }
 
         public Task<bool> DeleteAsync(Book book, CancellationToken cancellationToken)
         {
-            var deletedBook = _dbcontext.Books.Remove(book);
-            var isMarkedForDeletion = deletedBook.State == EntityState.Deleted;
+            var deletedBookEntry = _dbcontext.Books.Remove(book);
+            var isMarkedForDeletion = deletedBookEntry.State == EntityState.Deleted;
             return Task.FromResult(isMarkedForDeletion);
         }
 
@@ -56,9 +54,11 @@ namespace LibraryManagementSystem.Infrastructure.Database.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Book?> UpdateAsync(Book book, CancellationToken cancellationToken)
+        public Task<EntityEntry<Book>> UpdateAsync(Book book, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+           var updatedBookEntry = _dbcontext.Books.Update(book);
+           return Task.FromResult(updatedBookEntry);
+
         }
     }
 }
