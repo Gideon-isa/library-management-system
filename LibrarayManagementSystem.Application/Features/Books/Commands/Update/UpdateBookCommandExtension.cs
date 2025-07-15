@@ -11,7 +11,7 @@ namespace LibrarayManagementSystem.Application.Features.Books.Commands.Update
                 command.Author, 
                 command.ISBN, 
                 DateTime.Parse(command.PublishedDate), 
-                "System");   
+                command.ModifiedBy);   
         }
     }
 }

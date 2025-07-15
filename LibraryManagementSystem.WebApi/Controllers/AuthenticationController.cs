@@ -19,6 +19,13 @@ namespace LibraryManagementSystem.Presentation.Controllers
 
         [AllowAnonymous]
         [HttpPost("signup")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesDefaultResponseType(typeof(ProblemDetails))]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public async Task<IActionResult> SignUp(
             [FromBody] CreateUserRequest request, 
             [FromServices] IValidator<CreateUserCommand> validator, 
@@ -39,6 +46,13 @@ namespace LibraryManagementSystem.Presentation.Controllers
 
         [AllowAnonymous]
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesDefaultResponseType(typeof(ProblemDetails))]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public async Task<IActionResult> login(
             [FromBody] LoginUserRequest request,
             [FromServices] IValidator<LoginUserCommand> validator,
@@ -57,6 +71,13 @@ namespace LibraryManagementSystem.Presentation.Controllers
 
         [AllowAnonymous]
         [HttpGet("user/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesDefaultResponseType(typeof(ProblemDetails))]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public async Task<IActionResult> GetUserById(
             [FromRoute] Guid id, [FromServices] IValidator<GetUserByIdQuery> validator, 
             CancellationToken cancellationToken = default)

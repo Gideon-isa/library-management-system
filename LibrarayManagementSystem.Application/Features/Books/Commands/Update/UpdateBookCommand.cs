@@ -10,5 +10,6 @@ namespace LibrarayManagementSystem.Application.Features.Books.Commands.Update
         public string Author { get; set; } = string.Empty;
         public string ISBN { get; set; } = string.Empty;
         public string PublishedDate { get; set; } = string.Empty;
+        public string ModifiedBy { get; set; } = string.Empty;
     }
 }
