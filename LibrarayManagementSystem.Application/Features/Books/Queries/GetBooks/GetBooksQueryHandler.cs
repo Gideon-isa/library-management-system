@@ -21,7 +21,7 @@ namespace LibrarayManagementSystem.Application.Features.Books.Queries.GetBooks
         public async Task<ResultResponse<BookDtos>> Handle(GetBooksQuery request, CancellationToken cancellationToken)
         {
             try
-            {
+             {
                 Expression<Func<Book, BookDto>> bookQuery = GetBooksQuery.ProjectToDto();
                 IQueryable<Book> query = await _bookRepository.GetBooksAsync(request.Search, cancellationToken);
 
