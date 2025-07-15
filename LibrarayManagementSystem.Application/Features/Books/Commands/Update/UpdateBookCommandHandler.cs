@@ -40,7 +40,7 @@ namespace LibrarayManagementSystem.Application.Features.Books.Commands.Update
 
 
                 var updateEntry = await _bookRepository.UpdateAsync(book, cancellationToken);
-                if (updateEntry.State is EntityState.Modified)
+                if (updateEntry is not null)
                 {
                     await _unitOfWork.SaveChangesAsync(cancellationToken);
                     _logger.LogInformation("Book with ID {Id} updated successfully", request.Id);

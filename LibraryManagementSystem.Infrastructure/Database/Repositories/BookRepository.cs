@@ -15,16 +15,16 @@ namespace LibraryManagementSystem.Infrastructure.Database.Repositories
             _dbcontext = context;
             _logger = logger;
         }
-        public async Task<EntityEntry<Book>> CreateAsync(Book book, CancellationToken cancellationToken)
+        public async Task<Book> CreateAsync(Book book, CancellationToken cancellationToken)
         {
             var saveResult = await _dbcontext.Books.AddAsync(book);
-            return saveResult;
+            return saveResult.Entity;
         }
 
-        public Task<EntityEntry<Book>> DeleteAsync(Book book, CancellationToken cancellationToken)
+        public Task<Book> DeleteAsync(Book book, CancellationToken cancellationToken)
         {
             var deletedBookEntry = _dbcontext.Books.Remove(book);
-            return Task.FromResult(deletedBookEntry);
+            return Task.FromResult(deletedBookEntry.Entity);
         }
 
         public Task<bool> ExistsAsync(int id, CancellationToken cancellationToken)
@@ -53,10 +53,10 @@ namespace LibraryManagementSystem.Infrastructure.Database.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<EntityEntry<Book>> UpdateAsync(Book book, CancellationToken cancellationToken)
+        public Task<Book> UpdateAsync(Book book, CancellationToken cancellationToken)
         {
            var updatedBookEntry = _dbcontext.Books.Update(book);
-           return Task.FromResult(updatedBookEntry);
+           return Task.FromResult(updatedBookEntry.Entity);
 
         }
     }
