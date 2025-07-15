@@ -9,18 +9,19 @@ namespace LibraryManagementSystem.WebApi.Extensions.Books
 {
     public static class BooksExtensions
     {
-        public static CreateBookCommand ToCommand(this CreateBookRequest request)
+        public static CreateBookCommand ToCommand(this CreateBookRequest request, string loginUser)
         {
             return new CreateBookCommand
             {
                 Title = request.Title,
                 Author = request.Author,
                 ISBN = request.ISBN,
-                PublishedDate = request.PublishedDate
+                PublishedDate = request.PublishedDate,
+                CreatedBy = loginUser
             };
         }
 
-        public static UpdateBookCommand ToCommand(this UpdateBookRequest request, int bookId)
+        public static UpdateBookCommand ToCommand(this UpdateBookRequest request, int bookId, string loginUser)
         {
             return new UpdateBookCommand
             {
@@ -28,7 +29,8 @@ namespace LibraryManagementSystem.WebApi.Extensions.Books
                 Title = request.Title,
                 Author = request.Author,
                 ISBN = request.ISBN,
-                PublishedDate = request.PublishedDate
+                PublishedDate = request.PublishedDate,
+                ModifiedBy = loginUser
             };
         }
 

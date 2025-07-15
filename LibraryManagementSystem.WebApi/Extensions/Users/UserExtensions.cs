@@ -2,6 +2,7 @@
 using LibrarayManagementSystem.Application.Features.Users.Commands.Signup;
 using LibrarayManagementSystem.Application.Features.Users.Queries.GetUserById;
 using LibraryManagementSystem.WebApi.ApiModels.Request;
+using System.Security.Claims;
 
 namespace LibraryManagementSystem.Presentation.Extensions.Users
 {
@@ -37,5 +38,6 @@ namespace LibraryManagementSystem.Presentation.Extensions.Users
                 Id = id,
             };
         }
+
     }
 }

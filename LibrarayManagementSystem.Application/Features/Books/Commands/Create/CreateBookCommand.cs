@@ -9,5 +9,6 @@ namespace LibrarayManagementSystem.Application.Features.Books.Commands.Create
         public string Author { get; set; } = string.Empty;
         public string ISBN { get; set; } = string.Empty;
         public string PublishedDate { get; set; } = string.Empty;
+        public string CreatedBy { get; set; } = string.Empty;
     }
 }
