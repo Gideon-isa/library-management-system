@@ -1,6 +1,7 @@
 ﻿using LibrarayManagementSystem.Application.Response;
 using LibraryManagementSystem.Domain.Repository;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
@@ -30,7 +31,7 @@ namespace LibrarayManagementSystem.Application.Features.Books.Commands.Delete
                     return ResultResponse<bool>.Failure(false, new Error("404", "Book not found"), HttpStatusCode.NotFound, "Book not found");
                 }
                 var isMarkedDeleted = await _bookRepository.DeleteAsync(book, cancellationToken); 
-                if (isMarkedDeleted)
+                if (isMarkedDeleted.State is EntityState.Deleted)
                 {
                     await _unitOfWork.SaveChangesAsync(cancellationToken);
                     _logger.LogInformation("Book with ID {Id} deleted successfully", request.Id);

@@ -12,7 +12,7 @@ namespace LibraryManagementSystem.Domain.Repository
         Task<IQueryable<Book>> GetBooksByAuthorAsync(string author, CancellationToken cancellationToken);
         Task<Book?> GetByISBNAsync(string isbn, CancellationToken cancellationToken);
         Task<EntityEntry<Book>> UpdateAsync(Book book, CancellationToken cancellationToken);
-        Task<bool> DeleteAsync(Book user, CancellationToken cancellationToken);
+        Task<EntityEntry<Book>> DeleteAsync(Book user, CancellationToken cancellationToken);
         Task<bool> ExistsAsync(int id, CancellationToken cancellationToken);
     }
 }

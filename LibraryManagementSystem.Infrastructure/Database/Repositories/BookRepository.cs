@@ -21,11 +21,10 @@ namespace LibraryManagementSystem.Infrastructure.Database.Repositories
             return saveResult;
         }
 
-        public Task<bool> DeleteAsync(Book book, CancellationToken cancellationToken)
+        public Task<EntityEntry<Book>> DeleteAsync(Book book, CancellationToken cancellationToken)
         {
             var deletedBookEntry = _dbcontext.Books.Remove(book);
-            var isMarkedForDeletion = deletedBookEntry.State == EntityState.Deleted;
-            return Task.FromResult(isMarkedForDeletion);
+            return Task.FromResult(deletedBookEntry);
         }
 
         public Task<bool> ExistsAsync(int id, CancellationToken cancellationToken)

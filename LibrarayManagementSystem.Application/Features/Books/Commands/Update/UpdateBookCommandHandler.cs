@@ -49,7 +49,18 @@ namespace LibrarayManagementSystem.Application.Features.Books.Commands.Update
                 return ResultResponse<BookDto>.Failure(null, new Error("500", "Failed to update book"), HttpStatusCode.InternalServerError, "Failed to update book");
 
             }
-            catch (Exception)
+            catch (DbUpdateException e)
+            {
+                var message = e.InnerException?.Message.ToLower();
+                if (e.InnerException is not null && message!.Contains("duplicate key")
+                    || message!.Contains("unique") || message.Contains("constraint"))
+                {
+                    return ResultResponse<BookDto>.Failure(null, new Error("409", "Book with this ISBN already exists"), HttpStatusCode.Conflict, "Book with this ISBN already exists");
+                }
+                _logger.LogError(e, "Database error occurred while creating book with ISBN {ISBN}", request.ISBN);
+                throw new Exception("Database error occurred while creating book", e);
+            }
+            catch (Exception e)
             {
                 return ResultResponse<BookDto>.Failure(new(), new Error("500", "Something went wrong"), HttpStatusCode.InternalServerError);
             }
