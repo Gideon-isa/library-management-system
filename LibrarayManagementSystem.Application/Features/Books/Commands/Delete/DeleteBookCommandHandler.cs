@@ -30,8 +30,8 @@ namespace LibrarayManagementSystem.Application.Features.Books.Commands.Delete
                     _logger.LogWarning("Book with ID {Id} not found", request.Id);
                     return ResultResponse<bool>.Failure(false, new Error("404", "Book not found"), HttpStatusCode.NotFound, "Book not found");
                 }
-                var isMarkedDeleted = await _bookRepository.DeleteAsync(book, cancellationToken); 
-                if (isMarkedDeleted.State is EntityState.Deleted)
+                var MarkedDeleted = await _bookRepository.DeleteAsync(book, cancellationToken); 
+                if (MarkedDeleted is not null)
                 {
                     await _unitOfWork.SaveChangesAsync(cancellationToken);
                     _logger.LogInformation("Book with ID {Id} deleted successfully", request.Id);
