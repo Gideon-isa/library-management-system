@@ -44,5 +44,13 @@ namespace LibraryManagementSystem.WebApi.Controllers
             var result = await sender.Send(query, cancellationToken);
             return StatusCode(result.StatusCode, result);
         }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteBookById([FromRoute] int id, CancellationToken cancellationToken)
+        {
+            var query = BooksExtensions.ToDeleteCommand(id);
+            var result = await sender.Send(query, cancellationToken);
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }

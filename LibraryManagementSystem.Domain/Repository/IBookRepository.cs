@@ -6,13 +6,13 @@ namespace LibraryManagementSystem.Domain.Repository
 {
     public interface IBookRepository
     {
-        Task<bool> CreateAsync(Book book, CancellationToken cancellationToken);
+        Task<EntityEntry<Book>> CreateAsync(Book book, CancellationToken cancellationToken);
         Task<Book?> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task<IQueryable<Book>> GetBooksAsync(string? search, CancellationToken cancellationToken);
         Task<IQueryable<Book>> GetBooksByAuthorAsync(string author, CancellationToken cancellationToken);
         Task<Book?> GetByISBNAsync(string isbn, CancellationToken cancellationToken);
         Task<Book?> UpdateAsync(Book book, CancellationToken cancellationToken);
-        Task<bool> DeleteAsync(int id, CancellationToken cancellationToken);
+        Task<bool> DeleteAsync(Book user, CancellationToken cancellationToken);
         Task<bool> ExistsAsync(int id, CancellationToken cancellationToken);
     }
 }

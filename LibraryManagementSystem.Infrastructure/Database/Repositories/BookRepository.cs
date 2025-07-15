@@ -1,6 +1,7 @@
 ﻿using LibraryManagementSystem.Domain.Entities;
 using LibraryManagementSystem.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 
 namespace LibraryManagementSystem.Infrastructure.Database.Repositories
@@ -14,16 +15,19 @@ namespace LibraryManagementSystem.Infrastructure.Database.Repositories
             _dbcontext = context;
             _logger = logger;
         }
-        public async Task<bool> CreateAsync(Book book, CancellationToken cancellationToken)
+        public async Task<EntityEntry<Book>> CreateAsync(Book book, CancellationToken cancellationToken)
         {
-            await _dbcontext.Books.AddAsync(book);
-            var result = await _dbcontext.SaveChangesAsync();
-            return result > 0;
+            var saveResult = await _dbcontext.Books.AddAsync(book);
+            return saveResult;
+            //var result = await _dbcontext.SaveChangesAsync();
+            //return result > 0;
         }
 
-        public Task<bool> DeleteAsync(int id, CancellationToken cancellationToken)
+        public Task<bool> DeleteAsync(Book book, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var deletedBook = _dbcontext.Books.Remove(book);
+            var isMarkedForDeletion = deletedBook.State == EntityState.Deleted;
+            return Task.FromResult(isMarkedForDeletion);
         }
 
         public Task<bool> ExistsAsync(int id, CancellationToken cancellationToken)
