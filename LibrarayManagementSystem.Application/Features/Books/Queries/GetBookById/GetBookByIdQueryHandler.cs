@@ -32,6 +32,7 @@ namespace LibrarayManagementSystem.Application.Features.Books.Queries.GetBookByI
             }
             catch (Exception)
             {
+                _logger.LogError("An error occurred while retrieving book with ID {Id}", request.Id);
                 return ResultResponse<BookDto>.Failure(new BookDto(), new Error("500", "unable to retrieve book"),
                     System.Net.HttpStatusCode.InternalServerError, "something went wrong");
             }
