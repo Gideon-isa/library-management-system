@@ -34,12 +34,14 @@ namespace LibrarayManagementSystem.Application.Features.Books.Queries.GetBooks
                     .Select(bookQuery).ToListAsync(cancellationToken);
 
                 var bookResult = booksDtos.BookDtos(request.PageNumber, request.PageSize, totalCount);
+                _logger.LogInformation("Retrieved {Count} books successfully", totalCount);
                 return ResultResponse<BookDtos>.Success(bookResult, System.Net.HttpStatusCode.OK, "Books retrieved successfully");
 
             }
             catch (Exception)
             {
-
+                _logger.LogError("An error occurred while retrieving books");
+                return ResultResponse<BookDtos>.Failure(new BookDtos(), new Error("500", "An error occurred while retrieving books"), System.Net.HttpStatusCode.InternalServerError, "An error occurred while retrieving books");
                 throw;
             }
 

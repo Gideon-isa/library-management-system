@@ -52,7 +52,10 @@ builder.Services.AddSwaggerGen(config =>
 });
 
 builder.Services.AddApplicationVersioning();
-
+builder.Host.UseSerilog((context, config) =>
+{
+    config.ReadFrom.Configuration(context.Configuration);
+});
 var app = builder.Build();
 
 // seed data to the database'
