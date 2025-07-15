@@ -2,7 +2,9 @@
 using LibrarayManagementSystem.Application.Response;
 using LibraryManagementSystem.Domain.Repository;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Data.Common;
 using System.Net;
 
 namespace LibrarayManagementSystem.Application.Features.Books.Commands.Create
@@ -41,10 +43,20 @@ namespace LibrarayManagementSystem.Application.Features.Books.Commands.Create
                     return ResultResponse<BookDto>.Failure(null, new Error("500", "Failed to create book"), HttpStatusCode.InternalServerError, "Failed to create book");
                 }
             }
+            catch (DbUpdateException e)
+            {
+                var message = e.InnerException?.Message.ToLower();
+                if (e.InnerException is not null && message.Contains("duplicate key")
+                    || message.Contains("unique") || message.Contains("constraint"))
+                {
+                    return ResultResponse<BookDto>.Failure(null, new Error("409", "Book with this ISBN already exists"), HttpStatusCode.Conflict, "Book with this ISBN already exists");
+                }
+                _logger.LogError(e, "Database error occurred while creating book with ISBN {ISBN}", request.ISBN);
+                throw new Exception("Database error occurred while creating book", e);
+            }
             catch (Exception e)
             {
                 return ResultResponse<BookDto>.Failure(new(), new Error("500", "Something went wrong"), HttpStatusCode.InternalServerError);
-
             }
         }
     }
