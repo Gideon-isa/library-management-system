@@ -5,13 +5,14 @@ using LibraryManagementSystem.Presentation.Extensions;
 using LibraryManagementSystem.WebApi.ApiModels.Request;
 using LibraryManagementSystem.WebApi.Extensions.Books;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementSystem.WebApi.Controllers
 {
     [Route("api/books")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class BooksController(ISender sender) : ControllerBase
     {
         [HttpPost]

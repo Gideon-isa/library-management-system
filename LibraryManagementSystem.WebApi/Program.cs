@@ -74,6 +74,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseExceptionHandler();
+app.UseAuthentication();
 app.UseAuthorization();
 
 

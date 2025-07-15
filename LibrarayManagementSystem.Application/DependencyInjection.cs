@@ -17,8 +17,12 @@ namespace LibrarayManagementSystem.Application
         {
             var assembly = typeof(DependencyInjection).Assembly;
 
-            services.AddMediatR(config => config.RegisterServicesFromAssembly(assembly))
-                .AddValidatorsFromAssembly(assembly);
+            services.AddMediatR(config =>
+            {
+                config.RegisterServicesFromAssembly(assembly);
+
+            }).AddValidatorsFromAssembly(assembly);
+
             services.AddScoped<IJwtService, JwtService>();
             services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.Section));
 
@@ -42,6 +46,20 @@ namespace LibrarayManagementSystem.Application
                     RequireExpirationTime = true,
                     ValidateLifetime = true,
                     RoleClaimType = ClaimTypes.Role,
+                };
+
+                option.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
+                    {
+                        Console.WriteLine(" Token validation failed: " + context.Exception.Message);
+                        return Task.CompletedTask;
+                    },
+                    OnTokenValidated = context =>
+                    {
+                        Console.WriteLine(" Token successfully validated.");
+                        return Task.CompletedTask;
+                    }
                 };
             });
                 
