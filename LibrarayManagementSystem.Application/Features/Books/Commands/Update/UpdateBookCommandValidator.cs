@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
+using System.Text.RegularExpressions;
 
-namespace LibrarayManagementSystem.Application.Features.Books.Commands.Create
+namespace LibrarayManagementSystem.Application.Features.Books.Commands.Update
 {
-    public class CreateBookCommandValidator : AbstractValidator<CreateBookCommand>
+    public class UpdateBookCommandValidator : AbstractValidator<UpdateBookCommand>
     {
-        public CreateBookCommandValidator()
+        public UpdateBookCommandValidator()
         {
             RuleFor(x => x.Author)
                 .NotEmpty()
