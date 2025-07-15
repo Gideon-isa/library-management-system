@@ -2,6 +2,7 @@ using LibrarayManagementSystem.Application;
 using LibraryManagementSystem.Infrastructure;
 using LibraryManagementSystem.Infrastructure.Database.Data;
 using LibraryManagementSystem.WebApi.Extensions.ApplicationExtension;
+using LibraryManagementSystem.WebApi.Middleware;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -14,6 +15,9 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 
 // 
 builder.Services.AddApplication(builder.Configuration);
+
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -69,7 +73,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseExceptionHandler();
 app.UseAuthorization();
 
 
