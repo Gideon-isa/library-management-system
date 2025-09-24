@@ -12,7 +12,7 @@ This is an ASP.NET Core Web API for managing a library system. It supports featu
 - FluentValidation
 - xUnit & Moq (for unit testing)
 - Swagger / Swashbuckle
-- SQL Server or PostgreSQL (configurable)
+- SQL Server
 
 ---
 

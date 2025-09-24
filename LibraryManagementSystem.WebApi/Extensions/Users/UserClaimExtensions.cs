@@ -13,5 +13,8 @@ namespace LibraryManagementSystem.WebApi.Extensions.Users
             var last = principal?.GetLastName();
             return $"{first} {last}".Trim();
         }
+
+        public static string? GetUserId(this ClaimsPrincipal principal) => principal.FindFirstValue(ClaimTypes.NameIdentifier);
+        
     }
 }

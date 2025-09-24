@@ -1,4 +1,5 @@
-﻿using LibrarayManagementSystem.Application.Features.Books.Commands.Create;
+﻿using LibrarayManagementSystem.Application.Contracts;
+using LibrarayManagementSystem.Application.Features.Books.Commands.Create;
 using LibrarayManagementSystem.Application.Features.Books.Commands.Delete;
 using LibrarayManagementSystem.Application.Features.Books.Commands.Update;
 using LibrarayManagementSystem.Application.Features.Books.Queries.GetBookById;
@@ -9,7 +10,7 @@ namespace LibraryManagementSystem.WebApi.Extensions.Books
 {
     public static class BooksExtensions
     {
-        public static CreateBookCommand ToCommand(this CreateBookRequest request, string loginUser)
+        public static CreateBookCommand ToCommand(this CreateBookRequest request, ICurrentUserService currentUserService)
         {
             return new CreateBookCommand
             {
@@ -17,11 +18,11 @@ namespace LibraryManagementSystem.WebApi.Extensions.Books
                 Author = request.Author,
                 ISBN = request.ISBN,
                 PublishedDate = request.PublishedDate,
-                CreatedBy = loginUser
+                CreatedBy = currentUserService.GetFullName()!
             };
         }
 
-        public static UpdateBookCommand ToCommand(this UpdateBookRequest request, int bookId, string loginUser)
+        public static UpdateBookCommand ToCommand(this UpdateBookRequest request, int bookId, ICurrentUserService currentUserService)
         {
             return new UpdateBookCommand
             {
@@ -30,7 +31,7 @@ namespace LibraryManagementSystem.WebApi.Extensions.Books
                 Author = request.Author,
                 ISBN = request.ISBN,
                 PublishedDate = request.PublishedDate,
-                ModifiedBy = loginUser
+                ModifiedBy = currentUserService.GetFullName()!
             };
         }
 

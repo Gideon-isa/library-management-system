@@ -3,7 +3,7 @@ using MediatR;
 
 namespace LibrarayManagementSystem.Application.Features.Books.Commands.Create
 {
-    public class CreateBookCommand : IRequest<ResultResponse<BookDto>>,IResponseData 
+    public class CreateBookCommand : IRequest<ResultResponse<BookDto>>,IResponseData, IBookCommand
     {
         public string Title { get; set; } = string.Empty;
         public string Author { get; set; } = string.Empty;

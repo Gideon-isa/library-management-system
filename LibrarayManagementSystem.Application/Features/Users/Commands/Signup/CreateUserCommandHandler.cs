@@ -61,7 +61,6 @@ namespace LibrarayManagementSystem.Application.Features.Users.Commands.Signup
                 await _unitOfWork.RollbackTransactionAsync();
 
                 return ResultResponse<UserDto>.Failure(new(), new Error("500", "Something went wrong"), HttpStatusCode.InternalServerError);
-                
             }
 
         }

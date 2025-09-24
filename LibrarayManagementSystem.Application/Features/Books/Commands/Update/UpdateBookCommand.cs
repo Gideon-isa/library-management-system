@@ -3,7 +3,7 @@ using MediatR;
 
 namespace LibrarayManagementSystem.Application.Features.Books.Commands.Update
 {
-    public class UpdateBookCommand : IRequest<ResultResponse<BookDto>>, IResponseData
+    public class UpdateBookCommand : IRequest<ResultResponse<BookDto>>, IResponseData, IBookCommand
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
