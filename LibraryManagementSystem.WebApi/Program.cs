@@ -1,8 +1,13 @@
 using LibrarayManagementSystem.Application;
+using LibrarayManagementSystem.Application.Contracts;
+using LibrarayManagementSystem.Application.Features.Books.Commands;
 using LibraryManagementSystem.Infrastructure;
 using LibraryManagementSystem.Infrastructure.Database.Data;
+using LibraryManagementSystem.WebApi.ApiModels.Request;
+using LibraryManagementSystem.WebApi.Controllers;
 using LibraryManagementSystem.WebApi.Extensions.ApplicationExtension;
 using LibraryManagementSystem.WebApi.Middleware;
+using LibraryManagementSystem.WebApi.Services;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -18,8 +23,13 @@ builder.Services.AddApplication(builder.Configuration);
 
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddScoped<IControllerService, ControllerService>();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Conventions.Add(new ProducesResponseTypeConvention());
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(config =>
